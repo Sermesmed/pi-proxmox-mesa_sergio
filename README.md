@@ -30,7 +30,7 @@ Virtualizada (VMWare).
 
 ## Estado
 
-- [ ] GitHub creado y primer commit publicado
+- [X] GitHub creado y primer commit publicado
 - [ ] URL entregada y acceso docente comprobado
 - [ ] Modalidad indicada
 - [ ] Inventario
