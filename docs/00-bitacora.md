@@ -10,7 +10,7 @@ las evidencias utiles; evita frases generales como "he trabajado en Proxmox".
 - Acciones realizadas: creado repositorio privado en GitHub; ejecutado 'crear_estructura_entrega.sh' parar generar la estructura local de carpetas y documentos; completados README.md y docs/00-ficha-inicial.md.
 - Decisiones y motivos: modalidad virtualizada con VMWare por flexibilidad y por no depender del hardware de clase
 - Pruebas y resultados: PENDIENTE: resultado esperado, comando o metodo y resultado obtenido.
-- Documentos o evidencias: [Ficha inicial](00-ficha-inicial.md).
+- Documentos o evidencias: [23/09/2026](00-ficha-inicial.md).
 - Incidencias y solucion o estado pendiente: ninguna.
 - Siguiente paso: completar docs/10-memoria-tecnica.md, revisar .gitignore, y publicar el primer commit con 'git innit', 'add', 'commit' y 'push'.
 
