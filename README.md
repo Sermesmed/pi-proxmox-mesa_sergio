@@ -32,8 +32,8 @@ Virtualizada (VMWare).
 
 - [X] GitHub creado y primer commit publicado
 - [ ] URL entregada y acceso docente comprobado
-- [ ] Modalidad indicada
-- [ ] Inventario
+- [X] Modalidad indicada
+- [X] Inventario
 - [ ] Diagrama de red
 - [ ] Instalacion Proxmox
 - [ ] Plantilla Linux
