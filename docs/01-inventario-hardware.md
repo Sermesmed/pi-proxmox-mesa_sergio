@@ -36,11 +36,11 @@ No se utiliza el Proxmox del centro como recurso.
 
 | Elemento | CPU/vCPU | RAM | Disco | Justificacion |
 |---|---|---|---|---|
-| Proxmox |Host sin vCPU propias; se reserva 1 hilo de 4 |2 GiB |30 GiB |2 GB es el mínimo oficial para el SO y sus servicios. Disco: raíz y swap con ext4/LVM-thin. |
-| srv-aso |1 vCPU |2 GiB |30 GiB |Supuesto: servidor sin entorno gráfico. Es la VM con más carga, por eso lleva más CPU. |
-| cli-linux |2 vCPU |2 GiB |30 GiB |Supuesto: cliente Linux ligero. Con 1 vCPU basta para lanzar pruebas contra el servidor. |
+| Proxmox | Host sin vCPU propias; se reserva 1 hilo de 4 |2 GiB |30 GiB |2 GB es el mínimo oficial para el SO y sus servicios. Disco: raíz y swap con ext4/LVM-thin. |
+| srv-aso | 1 vCPU | 2 GiB | 30 GiB | Supuesto: servidor sin entorno gráfico. Es la VM con más carga, por eso lleva más CPU. |
+| cli-linux | 2 vCPU |2 GiB | 30 GiB | Supuesto: cliente Linux ligero. Con 1 vCPU basta para lanzar pruebas contra el servidor. |
 | Plantilla, ISOs y copias | No aplica | No aplica |30 GiB |Estimación: ISOs ≈ 6 GiB, plantilla ≈ 10 GiB, copias ≈ 24 GiB. |
-| Margen de operacion |Sin hilos extra |2 GiB |88,4 GiB |RAM: caché, memoria compartida con la gráfica integrada y picos. Disco: crecimiento de los discos thin. |
+| Margen de operacion | Sin hilos extra | 2 GiB | 88,4 GiB | RAM: caché, memoria compartida con la gráfica integrada y picos. Disco: crecimiento de los discos thin. |
 
 Mostrar calculos de RAM y disco, reparto de vCPU, unidades y supuestos.
 
