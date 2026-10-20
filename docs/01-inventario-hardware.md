@@ -54,7 +54,8 @@ Medido o estimado
 
 Medido, pendiente de comandos: hilos (lscpu), RAM visible (free -h), tamaño real del disco (lsblk) y red (ip -br link). Especificación de la ficha del fabricante: modelo de CPU, 8 GB soldados y 256 GB NVMe. Estimado: el reparto de arriba y los tamaños de ISOs, plantilla y copias.
 
-| Limitacion | Evidencia o estimacion | Consecuencia | Medida y limite que permanece 
+| Limitacion | Evidencia o estimacion | Consecuencia | Medida y limite que permanece |
+|---|---|---|---|
 |CPU de 2 núcleos y 4 hilos, con carga simulánea|Ficha: i3-1115G4, 2C/4T. Estimación: 3 vCPU asignadas y 1 hilo libre para el host|Es el cuello de botella principal. Bajo carga sostenida las VMs compiten por los hilos y la CPU puede bajar de frecuencia por temperatura|2 vCPU para srv-aso, 1 para cli-linux y 1 hilo reservado al host. No se puede añadir más CPU a este equipo.|
 |RAM de 8 GiB, una parte soldada |Ficha: 8 GB DDR4 soldada; un slot libre según la respuesta de PcComponentes |Solo caben 2 VMs ligeras con margen de 2 GiB, y no hay holgura para una tercera |Evitar ZFS, que necesita más memoria (Proxmox calcula aproximadamente 1 GB por cada TB de almacenamiento usado). Ampliar por el slot libre si existe; los 8 GB soldados no se amplían. |
 |Un solo SSD sin redundancia |Ficha: 1 NVMe de 256 GB de consumo, más una ranura M.2 2280 libre |Un fallo del disco o un corte de energía puede dañar todo el entorno. Proxmox recomienda SSD con protección ante pérdida de energía para el almacenamiento de VM. |Copias de las VMs a un USB o disco externo, porque las copias en el mismo disco no protegen. La ranura libre permite añadir un segundo disco, pero un SSD de consumo sigue sin esa protección. |
@@ -67,6 +68,7 @@ Ordenar al menos tres componentes para este equipo y su servicio.
 Distinguir cuello de botella, disponibilidad e integridad de los datos.
 
 | Prioridad y componente | Funcion | Efecto si es insuficiente | Efecto si falla | Evidencia y justificacion |
+|---|---|---|---|---|
 | 1. Almacenamiento |Almacenar el sistema operativo Proxmox, las imágenes ISO, los discos virtuales de las VMs y los contenedores LXC. |Cuello de botella: Las operaciones de lectura/escritura serán lentas al tratarse de un disco mecánico, ralentizando el arranque de las VMs y las actualizaciones. |Pérdida total de disponibilidad e integridad: Si el disco se corrompe o falla físicamente, se pierden todos los datos del nodo, contenedores y copias de seguridad locales. |Evidencia: Salida de lsblk (TOSHIBA DT01ACA050 de 465,8 GB). Es crítico porque un fallo en el almacenamiento detiene por completo la infraestructura virtualizada. |
 | 2. Memoria RAM|Proveer espacio de ejecución activo para el hipervisor Proxmox VE 9.2-1 y los recursos asignados al servidor ASO y clientes. |Cuello de botella: Saturación del sistema host si se asigna más memoria de la física disponible. |Inestabilidad del sistema: El kernel puede aplicar OOM Killer y terminar procesos críticos o apagar máquinas virtuales de forma imprevista. |Evidencia: Limitación de recursos del equipo del aula (8 GB). Es un recurso escaso al repartirse entre el nodo y los invitados. |
 | 3. Procesador|Ejecutar las instrucciones del hipervisor KVM, gestionar la virtualización por hardware y procesar las cargas de trabajo de los servicios. |Cuello de botella: Los 2 núcleos físicos y 4 hilos limitarán la cantidad de máquinas virtuales simultáneas y elevarán el tiempo de respuesta bajo carga. |Bloqueo del servicio: Si el procesador entra en 100% de uso sostenido, el acceso web a Proxmox (pveproxy) dejará de responder temporalmente. |Evidencia: Salida de lscpu (Intel Pentium G4560 @ 3.50GHz, 4 hilos con vmx) |
@@ -80,6 +82,7 @@ Consultar al menos tres fuentes primarias, incluyendo Proxmox y
 fabricante o plataforma virtual. Relacionarlas con las tres respuestas.
 
 | Fuente y URL | Version/modelo y fecha de consulta | Afirmacion respaldada | Aplicacion al nodo |
+|---|---|---|---|
 |(https://pve.proxmox.com/wiki/System_Requirements)|Proxmox VE 9.2-1 Consultado: Octubre 2026|Exige obligatoriamente un procesador de 64 bits (x86_64) con soporte de virtualización por hardware (Intel VT-x o AMD-V) y un mínimo de 2 GB de RAM para el sistema base.|Valida que el equipo de aula cumple con la arquitectura exigida y soporta el arranque nativo del hipervisor KVM.|
 |Comandos PC Clase Caracteristicas CPU |Ubuntu 24.04 LTS Consultado: Octubre 2026 |Se necesita conocer las características especificas de nuestro equipo para poder asignar una cantidad de hilos/vCPU correcta a cada servicio |Se uso el comando lscpu |
 |Comandos PC Clase Caracteristicas RAM |Ubuntu 24.04 LTS Consultado: Octubre 2026 |Se necesita conocer las características especificas de nuestro equipo para poder asignar una cantidad de memoria a cada servicio pues no todos usan el mismo |Se uso el comando free -h |
