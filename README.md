@@ -31,7 +31,7 @@ Virtualizada (VMWare).
 ## Estado
 
 - [X] GitHub creado y primer commit publicado
-- [ ] URL entregada y acceso docente comprobado
+- [X] URL entregada y acceso docente comprobado
 - [X] Modalidad indicada
 - [X] Inventario
 - [ ] Diagrama de red
