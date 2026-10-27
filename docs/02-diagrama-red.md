@@ -1,7 +1,7 @@
 # 02-diagrama-red
 
-## DIseño de red
-# Elementos de diseño
+# Diseño de red
+## Elementos de diseño
 |Elemento |Valor |
 |---|---|
 |Nombre del nodo Proxmox |pve-mesa |
@@ -11,7 +11,7 @@
 |IPs de las VMs/LXC |srv-aso 192.168.56.20 · cli-linux 192.168.56.30 |
 |Gateway y DNS |Invitados: gateway 192.168.56.10. Nodo: gateway 10.0.2.2, DNS 10.0.2.3 |
 
-# Tabla de direccionamiento
+## Tabla de direccionamiento
 |Elemento |Nombre |IP | Función |Recursos |
 |---|---|---|---|---|
 |Interfaz solo-anfitrión del host |(host) |192.168.56.1/24 |Navegador, SSH y Ansible |N/A |
@@ -19,16 +19,16 @@
 |Servidor ASO |srv-aso |192.168.56.20/24 |Servicio principal |1-2 vCPU, 1-2 GiB RAM |
 |Cliente |cli-linux |192.168.56.30/24 |Pruebas |1 vCPU, 512 MiB-1 GiB RAM |
 
-# Diagrama de red
+## Diagrama de red
 La imagen con el diagrama está disponible en [Evidencias](../evidencias).
 
-# Interfaces
+## Interfaces
 |Adaptador VirtualBox | Interfaz en Proxmox (a confirmar) |Bridge |IP |Uso |
 |---|---|---|---|---|
 |Adaptador1·NAT |enp0s3 |vmbr0 |10.0.2.15/24, gateway 10.0.2.2 |Salida del nodo |
 |Adaptador2·Solo-anfitrión |enp0s8 |vmbr1 |192.168.56.10/24 (sin gateway) |Gestión y laboratorio |
 
-# Puertos necesarios
+## Puertos necesarios
 |Origen |Destino |Puerto |Motivo |
 |---|---|---|---|
 |Host |pve-mesa |TCP 8006 |Panel web de Proxmox |
@@ -37,19 +37,19 @@ La imagen con el diagrama está disponible en [Evidencias](../evidencias).
 |Invitados |DNS 10.0.2.3 |53 |Resolución de nombres |
 |Invitados (vía nodo) |Repositorios Linux |TCP 80/443 |Instalación de paquetes |
 
-# Medidas de aislamiento
+## Medidas de aislamiento
 - Red solo-anfitrión sin bridge a la red física del aula.
 - DHCP desactivado: todas las IP son estáticas.
 - Modo promiscuo solo en el adaptador de laboratorio.
 - Sin gateway en la interfaz solo-anfitrión del host.
 
-# Límites de acceso
+## Límites de acceso
 - El panel de Proxmox (8006) y el SSH solo son accesibles desde el host, por la red solo-anfitrión.
 - cli-linux solo necesita llegar al puerto 445 de srv-aso.
 - El laboratorio no es accesible desde la red del aula ni desde otros equipos.
 - Las pruebas se limitan a las máquinas del laboratorio propio.
 
-# Supuestos
+## Supuestos
 - Las direcciones son las del ejemplo de la guía y se cambiarán si colisionan con una VPN u otra red del host.
 - El diseño es una propuesta que todavía no se ha ejecutado en mi equipo.
 - Los nombres de las interfaces del nodo dependen de la versión de Proxmox.
