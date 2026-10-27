@@ -19,9 +19,6 @@
 |Servidor ASO |srv-aso |192.168.56.20/24 |Servicio principal |1-2 vCPU, 1-2 GiB RAM |
 |Cliente |cli-linux |192.168.56.30/24 |Pruebas |1 vCPU, 512 MiB-1 GiB RAM |
 
-## Diagrama de red
-La imagen con el diagrama está disponible en [Evidencias](../evidencias).
-
 ## Interfaces
 |Adaptador VirtualBox | Interfaz en Proxmox (a confirmar) |Bridge |IP |Uso |
 |---|---|---|---|---|
