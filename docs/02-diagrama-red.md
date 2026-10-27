@@ -6,7 +6,7 @@
 |---|---|
 |Nombre del nodo Proxmox |pve-mesa |
 |Interfaz de gestión |Segunda interfaz (adaptador Host-only)->vmbr1 (192.168.56.10/24) |
-|Bridges y Proxmox |vmbr0 (salida NAT 10.0.X.10/24) y vmbr1 (laboratorio) |
+|Bridges y Proxmox |vmbr0 (salida NAT 10.0.67.10/24) y vmbr1 (laboratorio) |
 |Red o VLAN de laboratorio |192.168.56.0/24 (VMnet1), sin VLAN |
 |IPs de las VMs/LXC |srv-aso 192.168.56.20 · cli-linux 192.168.56.30 |
 |Gateway y DNS |Invitados: gateway 192.168.56.10. Nodo: gateway 10.0.2.2, DNS 10.0.2.3 |
@@ -15,14 +15,14 @@
 |Elemento |Nombre |IP | Función |Recursos |
 |---|---|---|---|---|
 |Interfaz solo-anfitrión del host |(host) |DHCP de la red real |Acceso a Internet del equipo, ajena al laboratorio |N/A |
-|Nodo Proxmox |pve-mesa |192.168.56.10/24 (vmbr1) y 10.0.X.10/24 (vmbr0) |Hipervisor |2 vCPU, 6-8 GiB RAM, 80 GiB disco |
+|Nodo Proxmox |pve-mesa |192.168.56.10/24 (vmbr1) y 10.0.67.10/24 (vmbr0) |Hipervisor |2 vCPU, 6-8 GiB RAM, 80 GiB disco |
 |Servidor ASO |srv-aso |192.168.56.20/24 |Servicio principal |1-2 vCPU, 1-2 GiB RAM |
 |Cliente |cli-linux |192.168.56.30/24 |Pruebas |1 vCPU, 512 MiB-1 GiB RAM |
 
 ## Interfaces
 |Adaptador VirtualBox | Interfaz en Proxmox (a confirmar) |Bridge |IP |Uso |
 |---|---|---|---|---|
-|Adaptador1·NAT |nic0 |vmbr0 |10.0.X.10/24, gateway 10.0.X.2 |Salida del nodo |
+|Adaptador1·NAT |nic0 |vmbr0 |10.0.67.10/24, gateway 10.0.67.2 |Salida del nodo |
 |Adaptador2·Solo-anfitrión |nic1 |vmbr1 |192.168.56.10/24 (sin gateway) |Gestión y laboratorio |
 
 ## Puertos necesarios
