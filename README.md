@@ -34,8 +34,8 @@ Virtualizada (VMWare).
 - [X] URL entregada y acceso docente comprobado
 - [X] Modalidad indicada
 - [X] Inventario
-- [ ] Diagrama de red
-- [ ] Instalacion Proxmox
+- [X] Diagrama de red
+- [X] Instalacion Proxmox
 - [ ] Plantilla Linux
 - [ ] VMs/LXC
 - [ ] Servicio ASO
