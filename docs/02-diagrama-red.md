@@ -15,7 +15,7 @@
 |Elemento |Nombre |IP | Función |Recursos |
 |---|---|---|---|---|
 |Interfaz solo-anfitrión del host |(host) |DHCP de la red real |Acceso a Internet del equipo, ajena al laboratorio |N/A |
-|Nodo Proxmox |pve-mesa |192.168.56.10/24 (vmbr1) y 10.0.67.10/24 (vmbr0) |Hipervisor |2 vCPU, 6-8 GiB RAM, 80 GiB disco |
+|Nodo Proxmox |pve-mesa |192.168.56.10/24 (vmbr1) y 10.0.67.10/24 (vmbr0) |Hipervisor |2 vCPU, 6-8 GiB RAM, 20 GiB disco |
 |Servidor ASO |srv-aso |192.168.56.20/24 |Servicio principal |1-2 vCPU, 1-2 GiB RAM |
 |Cliente |cli-linux |192.168.56.30/24 |Pruebas |1 vCPU, 512 MiB-1 GiB RAM |
 
