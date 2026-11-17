@@ -53,6 +53,49 @@ Resultado: el nodo responde en ambas redes, la ruta por defecto sale solo por `v
 - **Contraseña de `root` olvidada**. Solución: restablecida desde GRUB arrancando con `init=/bin/bash` y `passwd root`. A partir de ahora se guarda en un gestor de contraseñas.
 - **Repositorio Enterprise activo sin suscripción**: el panel lo avisa. Pendiente de cambiarlo según indique el profesor.
 - **Disco de 20 GiB**, menor que los 80 GiB previstos en el diseño. Se deja así de momento; para el servicio se usarán preferentemente contenedores LXC.
+
+## Configuración base del nodo (fase 4)
+
+### Almacenamiento
+
+| ID | Tipo | Contenido | Ruta | Espacio |
+|---|---|---|---|---|
+| `local` | Directory | Backup, Import, ISO image, Container template | `/var/lib/vz` | 8,4 GiB, 3,8 GiB libres (53 % usado) |
+| `local-lvm` | LVM-Thin | Disk image, Container | n/a | 6,5 GiB, sin uso |
+
+- `local` está en la partición raíz del nodo, así que ISOs, plantillas y copias compiten con el sistema por 3,8 GiB. Admite Backup, por lo que sirve como destino de prueba para la fase 9.
+- Si las copias se guardan en el mismo disco del laboratorio, un fallo de ese disco afectaría a la vez a las máquinas y a sus copias.
+- Espacio libre en el anfitrión: 132 GB en C:, que es donde crece el disco virtual si hay que ampliarlo.
+
+### Red y nombres
+
+- `vmbr0` (192.168.67.10/24) y `vmbr1` (192.168.56.10/24) coinciden con el diagrama de red.
+- `hostname -f` devuelve `pve-mesa.lab.test` y resuelve a 192.168.67.10, no a 127.0.0.1.
+- El nodo resuelve nombres externos (`deb.debian.org`). Acceso al repositorio de paquetes autorizado: pendiente de confirmar con el profesor.
+
+### Accesos
+
+- Única cuenta usada: `root@pam`. No se han creado más usuarios ni roles.
+- La contraseña se guarda en un gestor de contraseñas y no aparece en capturas ni en el repositorio.
+- El firewall de Proxmox no se ha activado: no es objetivo obligatorio de la práctica.
+
+### Reparto de recursos (previsión)
+
+| Elemento | CPU | RAM | Almacenamiento | Motivo |
+|---|---|---|---|---|
+| Nodo Proxmox | 2 vCPU | 5,7 GiB (uso ~1,5 GiB) | 20 GiB (`sda`) | Mínimo para administrar el nodo con margen |
+| `srv-aso` | 1 | 1 GiB | 2-3 GiB (LXC) | Servicio Samba ligero |
+| `cli-linux` | 1 | 512 MiB | ~2 GiB (LXC) | Solo pruebas del servicio |
+| Plantilla, ISO, copias y margen | n/a | ~1 GiB libre | resto de `local-lvm` y `local` | Clonado y copias de prueba |
+
+Las cifras de los invitados son una previsión que se ajustará con las medidas de las fases siguientes.
+
+### Evidencias
+
+- [Almacenamiento en el panel](../evidencias/almacenamiento_en_el_nodo.png)
+- [df -h y espacio libre del anfitrión](../evidencias/df-h.png)
+- [Nombre del nodo y DNS](../evidencias/nombre_del_nodo_y_DNS.png)
+
 ## Conclusion
  
 Proxmox VE queda instalado y accesible desde el host por la red de gestión, con las dos redes del diseño configuradas y la virtualización anidada operativa. Pendiente: salida a Internet de los invitados mediante NAT en el nodo (con aprobación docente) y ampliar el disco si el espacio resulta insuficiente.
